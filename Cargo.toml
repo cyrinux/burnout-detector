@@ -1,0 +1,35 @@
+[package]
+name = "burnout-detector"
+version = "0.2.0"
+edition = "2021"
+authors = ["Cyril Levis", "Maxim Baz"]
+categories = ["gui"]
+keywords = ["linux", "desktop-application", "sway", "hyprland", "waybar", "wayland", "burnout"]
+description = "This app aims to help you to take some breaks, this acts as waybar module and can also send notifications."
+readme = "README.md"
+license = "ISC"
+homepage = "https://github.com/cyrinux/burnout-detector"
+repository = "https://github.com/cyrinux/burnout-detector"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+[dependencies]
+serde = { version = "1.0.152", features = ["derive"] }
+wayland-client = "0.30.1"
+wayland-protocols-plasma = { version = "0.1.0", features = ["client", "wayland-client"] }
+wayland-protocols = { version = "0.29.5", features = ["client", "unstable_protocols"] }
+serde_json = "1.0.94"
+chan = "0.1.23"
+clap = { version = "4.1.8", features = ["derive", "std"] }
+notify-rust = "4.8.0"
+time = "0.3.20"
+hhmmss = "0.1.0"
+rand = "0.8.5"
+
+# [profile.release]
+# debug = true
+
+# [profile.bench]
+# debug = true
+
+# [profile.test]
+# debug = true
