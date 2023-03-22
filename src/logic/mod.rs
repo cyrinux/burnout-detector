@@ -4,9 +4,10 @@ use serde::{Deserialize, Serialize};
 use std::error::Error;
 use std::time::{Duration, Instant};
 
-use crate::alert::Alert;
-use crate::status::Status;
+mod alert;
+
 use crate::Args;
+use crate::logic::alert::Alert;
 
 /// Waybar output struct
 #[derive(Serialize, Deserialize, Debug)]
@@ -14,6 +15,13 @@ struct WaybarOutput {
     text: String,
     class: String,
     tooltip: String,
+}
+
+/// Status of the app
+#[derive(Debug)]
+pub enum Status {
+    Active(Instant, Duration),
+    Idle(Instant, Duration),
 }
 
 /// Logic of the app
@@ -109,14 +117,10 @@ impl Logic {
     }
 
     fn update(&mut self) -> Result<(), Box<dyn Error>> {
-        match self.status {
-            Status::Active(start, _elapsed) => {
-                self.status = self.status.update(Instant::now() - start);
-            }
-            Status::Idle(start, _elapsed) => {
-                self.status = self.status.update(Instant::now() - start);
-            }
-        }
+        self.status = match self.status {
+            Status::Active(start, _) => Status::Active(start, Instant::now() - start),
+            Status::Idle(start, _) => Status::Idle(start, Instant::now() - start),
+        };
 
         Ok(())
     }
@@ -181,11 +185,11 @@ impl Logic {
             return;
         }
         match self.status {
-            Status::Idle(_, _) => {
-                eprintln!("Is idle since {}", self.status.elapsed_time().hhmmss());
+            Status::Idle(_, elapsed) => {
+                eprintln!("Is idle since {}", elapsed.hhmmss());
             }
-            Status::Active(_, _) => {
-                eprintln!("Is active since {}", self.status.elapsed_time().hhmmss());
+            Status::Active(_, elapsed) => {
+                eprintln!("Is active since {}", elapsed.hhmmss());
             }
         }
     }

@@ -1,9 +1,7 @@
 use clap::Parser;
 
-mod alert;
 mod helpers;
 mod logic;
-mod status;
 mod wayland;
 use wayland::Wayland;
 

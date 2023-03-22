@@ -3,7 +3,7 @@ use notify_rust::{Hint, Notification, Urgency};
 use std::time::Duration;
 
 use crate::helpers::*;
-use crate::status::Status;
+use crate::logic::Status;
 use crate::Args;
 
 const MIN_NOTIFICATION_TIME: Duration = Duration::from_secs(15);
