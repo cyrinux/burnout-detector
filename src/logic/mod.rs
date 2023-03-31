@@ -6,8 +6,8 @@ use std::time::{Duration, Instant};
 
 mod alert;
 
-use crate::Args;
 use crate::logic::alert::Alert;
+use crate::Args;
 
 /// Waybar output struct
 #[derive(Serialize, Deserialize, Debug)]
@@ -63,6 +63,7 @@ impl Logic {
             counter_sent: 0,
             notification_delay_secs,
             urgency: Urgency::Low,
+            quiet: false,
         };
 
         let waybar_output = WaybarOutput {
@@ -211,6 +212,7 @@ mod tests {
         };
 
         let mut logic = Logic::new(&args).unwrap();
+        logic.alert.quiet = true;
         let start = Instant::now();
         let mut eyes: Vec<String> = vec![];
 
@@ -257,6 +259,7 @@ mod tests {
         };
 
         let mut logic = Logic::new(&args).unwrap();
+        logic.alert.quiet = true;
 
         logic.eyes_actual = vec![args.icon.clone(), args.icon.clone(), args.icon.clone()];
         logic.status = Status::Idle(Instant::now(), Duration::from_secs(60));
@@ -279,6 +282,7 @@ mod tests {
         };
 
         let mut logic = Logic::new(&args).unwrap();
+        logic.alert.quiet = true;
 
         logic.eyes_actual = vec![args.icon.clone(), args.icon.clone(), args.icon.clone()];
         logic.status = Status::Idle(Instant::now(), Duration::from_secs(120));
@@ -302,6 +306,7 @@ mod tests {
         };
 
         let mut logic = Logic::new(&args).unwrap();
+        logic.alert.quiet = true;
 
         logic.eyes_actual = vec![args.icon.clone(), args.icon.clone(), args.icon.clone()];
         logic.status = Status::Idle(Instant::now(), Duration::from_secs(120));
@@ -330,6 +335,7 @@ mod tests {
         };
 
         let mut logic = Logic::new(&args).unwrap();
+        logic.alert.quiet = true;
         let start = Instant::now();
         logic.eyes_actual = vec![args.icon.clone(), args.icon.clone(), args.icon.clone()];
 
@@ -364,6 +370,7 @@ mod tests {
         };
 
         let mut logic = Logic::new(&args).unwrap();
+        logic.alert.quiet = true;
         let start = Instant::now();
 
         logic.eyes_actual = vec![args.icon.clone(), args.icon.clone(), args.icon.clone()];
@@ -386,6 +393,7 @@ mod tests {
         };
 
         let mut logic = Logic::new(&args).unwrap();
+        logic.alert.quiet = true;
         let start = Instant::now();
 
         // after 0s
@@ -460,8 +468,8 @@ mod tests {
             icon: "O".to_owned(),
         };
         let mut logic = Logic::new(&args).unwrap();
+        logic.alert.quiet = true;
         let start = Instant::now();
-
         // after 0s
         logic.status = Status::Active(start, Duration::from_secs(0));
         assert_eq!(logic.run_on_state().is_ok(), true);
@@ -541,6 +549,7 @@ mod tests {
         };
         let start = Instant::now();
         let mut logic = Logic::new(&args).unwrap();
+        logic.alert.quiet = true;
 
         logic.status = Status::Active(start, Duration::from_secs(270));
         assert_eq!(logic.run_on_state().is_ok(), true);

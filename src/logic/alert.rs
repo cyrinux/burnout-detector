@@ -21,6 +21,8 @@ pub struct Alert {
     pub next_send_time: Duration,
     /// Active start at this time
     pub notification_delay_secs: Duration,
+    /// Don't send real notification in test
+    pub quiet: bool,
 }
 
 impl Alert {
@@ -67,7 +69,8 @@ impl Alert {
             );
         }
 
-        Notification::new()
+        if !self.quiet {
+            return Notification::new()
                     .summary(&format!("Burnout detector ({}x)", self.counter_sent))
                     .body(&format!(
                         "You didn't take a break for {}\nYou should take a <b>{}</b> break and do some <b>gym</b> exercice!\n\n<b>{:?}</b>",
@@ -79,7 +82,9 @@ impl Alert {
                     .appname("burnout_detector")
                     .hint(Hint::Urgency(urgency))
                     .timeout(0)
-                    .show().is_ok()
+                    .show().is_ok();
+        }
+        true
     }
 
     pub fn reset_notifications(&mut self) {
