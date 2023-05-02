@@ -1,4 +1,4 @@
-# burnout-detector
+# Burnout-detector 🧠🧑‍🚒
 
 This toy aim to detect your idle activity and invite you to take a break and do some gymnastics.
 
