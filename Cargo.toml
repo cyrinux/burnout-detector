@@ -1,10 +1,10 @@
 [package]
 name = "burnout-detector"
-version = "0.2.0"
+version = "0.3.0"
 edition = "2021"
 authors = ["Cyril Levis", "Maxim Baz"]
 categories = ["gui"]
-keywords = ["linux", "desktop-application", "sway", "hyprland", "waybar", "wayland", "burnout"]
+keywords = ["linux", "desktop-application", "sway", "hyprland", "waybar"]
 description = "This app aims to help you to take some breaks, this acts as waybar module and can also send notifications."
 readme = "README.md"
 license = "ISC"

@@ -171,7 +171,8 @@ impl Logic {
         let max_seconds = max_eyes * self.args.idle_timeout;
 
         let new_eyes_to_remove = (elapsed.as_secs() * max_eyes) / max_seconds;
-        let new_eyes = max_eyes - new_eyes_to_remove;
+
+        let new_eyes = max_eyes.saturating_sub(new_eyes_to_remove);
 
         self.eyes_actual = (0..new_eyes).map(|_| self.args.icon.to_string()).collect();
 
