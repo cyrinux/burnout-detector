@@ -1,5 +1,11 @@
 # Burnout-detector 🧠🧑‍🚒
 
+![](https://img.shields.io/crates/d/burnout-detector)
+![](https://img.shields.io/github/issues-raw/cyrinux/burnout-detector)
+![](https://img.shields.io/github/stars/cyrinux/burnout-detector)
+![](https://img.shields.io/aur/version/burnout-detector-git)
+![](https://img.shields.io/crates/v/burnout-detector)
+
 This toy aim to detect your idle activity and invite you to take a break and do some gymnastics.
 
 ---
