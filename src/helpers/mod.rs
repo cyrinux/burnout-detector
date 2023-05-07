@@ -54,7 +54,7 @@ pub fn get_random_gymnastic() -> String {
         "Walk for a while 🚶️",
         "Whisper to yourself, 'I am calm and in control' 😊",
         "Wrap yourself in a cozy blanket and relax on the couch 🛋️",
-        "Write in a journal to express your thoughts and emotions 🖋️",
+        "Write in a journal to express your thoughts and emotions 🖋",
     ]
     .iter()
     .cloned()
