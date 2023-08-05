@@ -70,19 +70,39 @@ impl Alert {
         }
 
         if !self.quiet {
-            return Notification::new()
-                    .summary(&format!("Burnout detector ({}x)", self.counter_sent))
-                    .body(&format!(
-                        "You didn't take a break for {}\nYou should take a <b>{}</b> break and do some <b>gym</b> exercice!\n\n<b>{:?}</b>",
-                       elapsed.hhmmss(),
-                       pause_time.hhmmss(),
-                       get_random_gymnastic(),
-                    ))
-                    .icon("media-playback-pause-symbolic")
-                    .appname("burnout_detector")
-                    .hint(Hint::Urgency(urgency))
-                    .timeout(0)
-                    .show().is_ok();
+            return match get_random_gymnastic() {
+                (exercise, Some(url)) => {
+                    Notification::new()
+                            .summary(&format!("Burnout detector ({}x)", self.counter_sent))
+                            .body(&format!(
+                                "You didn't take a break for {}\nYou should take a <b>{}</b> break and do some <b>gym</b> exercice!\n\n<b>{}</b>",
+                               elapsed.hhmmss(),
+                               pause_time.hhmmss(),
+                               exercise
+                            ))
+                            .icon("media-playback-pause-symbolic")
+                            .appname("burnout_detector")
+                            .action(&format!("xdg-open {}", &url), "open URL")
+                            .hint(Hint::Urgency(urgency))
+                            .timeout(0)
+                            .show().is_ok()
+                }
+                (exercise, None) => {
+                    Notification::new()
+                        .summary(&format!("Burnout detector ({}x)", self.counter_sent))
+                        .body(&format!(
+                            "You didn't take a break for {}\nYou should take a <b>{}</b> break and do some <b>gym</b> exercice!\n\n<b>{}</b>",
+                           elapsed.hhmmss(),
+                           pause_time.hhmmss(),
+                           exercise
+                        ))
+                        .icon("media-playback-pause-symbolic")
+                        .appname("burnout_detector")
+                        .hint(Hint::Urgency(urgency))
+                        .timeout(0)
+                        .show().is_ok()
+                }
+            };
         }
         true
     }
